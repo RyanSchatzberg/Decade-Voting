@@ -1,11 +1,11 @@
--- Create the owners table
-CREATE TABLE owners (
-    owner_id INT,
-    owner_name VARCHAR(10)
+-- Create the members table
+CREATE TABLE members (
+    member_id INT PRIMARY KEY,
+    member_name VARCHAR(10)
 );
 
--- Insert data into 'owners'
-INSERT INTO owners (owner_id, owner_name)
+-- Insert data into 'members'
+INSERT INTO members (member_id, member_name)
 VALUES
     (1, 'Aaron'),
     (2, 'Ben'),
@@ -22,9 +22,9 @@ VALUES
 
 -- Create the positions table
 CREATE TABLE positions (
-    position_id INT,
-    position_name VARCHAR(5),
-    long_name (VARCHAR(50))
+    position_id INT PRIMARY KEY,
+    position_name VARCHAR(5) UNIQUE,
+    long_name VARCHAR(50)
 );
 
 -- Insert data into 'positions'
@@ -39,9 +39,12 @@ VALUES
 
 -- Create the players table
 CREATE TABLE players (
-    player_id INT,
+    player_id INT PRIMARY KEY,
     player_name VARCHAR(50),
     position VARCHAR(5),
+    CONSTRAINT fk_player_position
+        FOREIGN KEY (position) 
+        REFERENCES decade.positions(position_name)
 );
 
 -- Insert data into 'players'
@@ -155,13 +158,20 @@ VALUES
 
 -- Create the ballots table
 CREATE TABLE ballots (
-    voter_id VARCHAR(10),
-    player_id VARCHAR(50),
+    voter_id INT,
+    player_id INT,
     points INT,
+    PRIMARY KEY (voter_id, player_id),
+    CONSTRAINT fk_ballot_voter
+        FOREIGN KEY (voter_id)
+        REFERENCES decade.members(member_id),
+    CONSTRAINT fk_ballot_player
+        FOREIGN KEY (player_id)
+        REFERENCES decade.players(player_id)
 );
 
 -- Insert data into 'ballots'
-INSERT INTO ballots (voter_id, player, points)
+INSERT INTO ballots (voter_id, player_id, points)
 VALUES
     (1,2,8),
     (1,83,7),
