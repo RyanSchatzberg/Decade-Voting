@@ -20,7 +20,7 @@ Points are not equally weighted by position groups. The maximum points a player 
 - D/ST - 4,
 - K - 4
 
-The points a player received divided by the maximum points they could have received by their position is a variable that will be referred to as "points percentage" going forward.
+The points a player received divided by the maximum points they could have received by their position is a variable that will be referred to as **points percentage** going forward.
 
 **Question 4**: What players have a points percentage of 75% or greater? Format points percentage as a number rounded two decimal places.
 
